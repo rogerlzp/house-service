@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="mysqlgenerator" targetRuntime="MyBatis3">
+        <property name="autoDelimitKeywords" value="true"/>
+        <!--可以使用``包括字段名，避免字段名与sql保留字冲突报错-->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!-- 自动生成toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <!-- 自动生成equals方法和hashcode方法 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+
+        <!-- 非官方插件 https://github.com/itfsw/mybatis-generator-plugin -->
+        <!-- 查询单条数据插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.SelectOneByExamplePlugin"/>
+        <!-- 查询结果选择性返回插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.SelectSelectivePlugin"/>
+        <!-- Example Criteria 增强插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.ExampleEnhancedPlugin"/>
+        <!-- 数据Model属性对应Column获取插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.ModelColumnPlugin"/>
+        <!-- 逻辑删除插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.LogicalDeletePlugin">
+            <!-- 这里配置的是全局逻辑删除列和逻辑删除值，当然在table中配置的值会覆盖该全局配置 -->
+            <!-- 逻辑删除列类型只能为数字、字符串或者布尔类型 -->
+            <property name="logicalDeleteColumn" value="deleted"/>
+            <!-- 逻辑删除-已删除值 -->
+            <property name="logicalDeleteValue" value="1"/>
+            <!-- 逻辑删除-未删除值 -->
+            <property name="logicalUnDeleteValue" value="0"/>
+        </plugin>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!--<property name="suppressAllComments" value="true"/>-->
+        </commentGenerator>
+
+        <!--数据库连接信息-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://121.42.145.216:3306/house_service?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8"
+                        userId="house_service"
+                        password="house_pwd_2021$"/>
+
+        <javaTypeResolver>
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.house.backend.houseservice.pojo.sys"
+                            targetProject="src/main/java/">
+            <!-- 是否对model添加 构造函数 -->
+            <property name="constructorBased" value="truserue"/>
+            <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
+            <property name="immutable" value="false"/>
+            <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--Mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
+        <sqlMapGenerator targetPackage="mapper.sys" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="com.house.backend.houseservice.dao.sys" targetProject="src/main/java"
+                             type="XMLMAPPER">
+            <property name="enableSubPackages" value=""/>
+            <!--
+            定义Maper.java 源代码中的ByExample() 方法的可视性，可选的值有：
+            public;
+            private;
+            protected;
+            default
+            注意：如果 targetRuntime="MyBatis3",此参数被忽略
+     -->
+            <property name="exampleMethodVisibility" value=""/>
+            <!--                       方法名计数器
+              Important note: this property is ignored if the target runtime is MyBatis3.
+             -->
+            <property name="methodNameCalculator" value=""/>
+        </javaClientGenerator>
+
+
+        <!--表名-->
+        <table tableName="SYS_USER" domainObjectName="SysUser" enableSelectByExample="true"/>
+
+        <!--<table tableName="litemall_ad">-->
+        <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+    </context>
+</generatorConfiguration>
