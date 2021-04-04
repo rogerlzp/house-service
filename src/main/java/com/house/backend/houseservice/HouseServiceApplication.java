@@ -29,7 +29,7 @@ public class HouseServiceApplication {
         log.info("\n--------------------------------------------------------------------------------------------------------------------\n\t" +
                         "Application '{}' is running! Access URLs:\n\t" +
                         "Local: \t\thttp://localhost:{}/house/backend/swagger-ui.html\n\t" +
-                        "External: \thttp://{}:{}/house/backend/\n--------------------------------------------------------------------------------------------------------------------",
+                        "External: \thttp://{}:{}/datasim/backend/\n--------------------------------------------------------------------------------------------------------------------",
                 new String[]{"BackEndApplication Server Application v1.0",
                         env.getProperty("server.port"),
                         InetAddress.getLocalHost().getHostAddress(),
