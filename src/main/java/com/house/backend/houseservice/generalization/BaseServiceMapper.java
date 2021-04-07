@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * @author zhengshuqin
  * 通用操作mapper
  */
 public interface BaseServiceMapper<T> {

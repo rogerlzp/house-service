@@ -11,6 +11,7 @@
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
 
+        <plugin type="org.mybatis.generator.plugins.OverIsMergeablePlugin"/>
         <!-- 自动生成toString方法 -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
         <!-- 自动生成equals方法和hashcode方法 -->
@@ -19,6 +20,11 @@
         <!-- 非官方插件 https://github.com/itfsw/mybatis-generator-plugin -->
         <!-- 查询单条数据插件 -->
         <plugin type="com.itfsw.mybatis.generator.plugins.SelectOneByExamplePlugin"/>
+        <!-- MySQL分页插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.LimitPlugin">
+            <!-- 通过配置startPage影响Example中的page方法开始分页的页码，默认分页从0开始 -->
+            <property name="startPage" value="0"/>
+        </plugin>
         <!-- 查询结果选择性返回插件 -->
         <plugin type="com.itfsw.mybatis.generator.plugins.SelectSelectivePlugin"/>
         <!-- Example Criteria 增强插件 -->
@@ -46,32 +52,33 @@
                         connectionURL="jdbc:mysql://121.42.145.216:3306/litemall?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;verifyServerCertificate=false&amp;useSSL=false"
                         userId="house_service"
                         password="house_pwd_2021$"/>
-
         <javaTypeResolver>
             <property name="useJSR310Types" value="true"/>
         </javaTypeResolver>
 
         <javaModelGenerator targetPackage="com.house.backend.houseservice.pojo.sys"
                             targetProject="src/main/java/">
-            <!-- 是否对model添加 构造函数 -->
-            <property name="constructorBased" value="truserue"/>
-            <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
-            <property name="enableSubPackages" value="false"/>
-            <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
-            <property name="immutable" value="false"/>
-            <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
-            <property name="trimStrings" value="true"/>
+            <!--&lt;!&ndash; 是否对model添加 构造函数 &ndash;&gt;-->
+            <!--<property name="constructorBased" value="truserue"/>-->
+            <!--&lt;!&ndash; 是否允许子包，即targetPackage.schemaName.tableName &ndash;&gt;-->
+            <!--<property name="enableSubPackages" value="false"/>-->
+            <!--&lt;!&ndash; 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 &ndash;&gt;-->
+            <!--<property name="immutable" value="false"/>-->
+            <!--&lt;!&ndash; 是否对类CHAR类型的列的数据进行trim操作 &ndash;&gt;-->
+            <!--<property name="trimStrings" value="true"/>-->
         </javaModelGenerator>
         <!--Mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
         <sqlMapGenerator targetPackage="com.house.backend.houseservice.dao.sys" targetProject="src/main/java">
-            <property name="enableSubPackages" value="false"/>
+            <!--<property name="enableSubPackages" value="false"/>-->
         </sqlMapGenerator>
 
         <javaClientGenerator targetPackage="mapper.sys" targetProject="src/main/resources"
                              type="XMLMAPPER">
         </javaClientGenerator>
         <!--表名-->
-        <table tableName="sys_user" domainObjectName="SysUser" enableSelectByExample="true"/>
+        <table tableName="sys_user">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <!--<table tableName="litemall_ad">-->
             <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
